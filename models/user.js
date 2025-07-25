@@ -32,5 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     user.password = await bcrypt.hash(user.password, 10);
   });
 
+  User.associate = (models) => {
+    User.hasMany(models.Ticket, { foreignKey: "assignedTo", as: "assignedTickets" });
+    User.hasMany(models.Ticket, { foreignKey: "createdBy", as: "createdTickets" });
+  };
+
   return User;
 };

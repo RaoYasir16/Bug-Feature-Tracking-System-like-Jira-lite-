@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     Ticket.belongsTo(models.Project, { foreignKey: "projectId", as: "project" });
     Ticket.belongsTo(models.User, { foreignKey: "assignedTo", as: "assignedUser" });
     Ticket.belongsTo(models.User, { foreignKey: "createdBy", as: "creator" });
+    Ticket.hasMany(models.Comment, { foreignKey: "ticketId", as: "comments" });
     }
   }
   Ticket.init({

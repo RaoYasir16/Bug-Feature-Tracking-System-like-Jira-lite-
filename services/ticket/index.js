@@ -2,6 +2,8 @@ const {Ticket,Project,User} = require("../../models");
 const {STATUS_CODE,TEXTS} = require("../../config/constant");
 const asyncErrorHandler = require('../../utils/asyncErrorHandler');
 
+
+// Create Ticket
 const createTicket = asyncErrorHandler(async(req , res)=>{
     const project = await Project.findByPk(req.params.id);
     if(!project){
@@ -35,6 +37,8 @@ const createTicket = asyncErrorHandler(async(req , res)=>{
 });
 
 
+
+// Get all Ticket
 const getAll = asyncErrorHandler(async (req, res) => {
     const tickets = await Ticket.findAll({
       include: [
@@ -59,6 +63,8 @@ const getAll = asyncErrorHandler(async (req, res) => {
   });
   
 
+
+  // Get Single Ticket
 const getById = asyncErrorHandler(async(req,res)=>{
     const ticket = await Ticket.findByPk(req.params.id,{
         include: [
@@ -80,6 +86,8 @@ const getById = asyncErrorHandler(async(req,res)=>{
     })
 })
 
+
+// Update Ticket
 const updateTicket = asyncErrorHandler(async(req,res)=>{
     const ticket = await Ticket.findByPk(req.params.id);
 
@@ -105,6 +113,8 @@ const updateTicket = asyncErrorHandler(async(req,res)=>{
 });
 
 
+
+// Delete Ticket
 const remove = asyncErrorHandler(async(req,res)=>{
     const ticket = await Ticket.findByPk(req.params.id);
 
@@ -121,4 +131,4 @@ const remove = asyncErrorHandler(async(req,res)=>{
     })
 })
 
-module.exports ={createTicket,getAll,getById,updateTicket}
+module.exports ={createTicket,getAll,getById,updateTicket,remove}

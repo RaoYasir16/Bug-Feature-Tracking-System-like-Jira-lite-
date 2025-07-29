@@ -60,4 +60,18 @@ return res.status(STATUS_CODE.SUCCESS).json({
 })
 })
 
-module.exports = {create,login}
+
+const viewAllusers = asyncErrorHandler(async(req,res)=>{
+  const users = await User.findAll();
+
+  if(users.length === 0){
+    return req.status(STATUS_CODE.NOT_FOUND).json({
+      message:"User not found"
+    })
+  }
+
+  return res.status(STATUS_CODE.SUCCESS).json({
+    users
+  })
+})
+module.exports = {create,login,viewAllusers}

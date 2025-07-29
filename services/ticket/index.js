@@ -131,4 +131,41 @@ const remove = asyncErrorHandler(async(req,res)=>{
     })
 })
 
-module.exports ={createTicket,getAll,getById,updateTicket,remove}
+
+//-------------------- User role functionalitys -------------------//
+const viewOurTicket = asyncErrorHandler(async(req,res)=>{
+    const assignedTo = req.user.id
+    const tickets = await Ticket.findAll({where:{assignedTo}});
+
+    if(tickets.length === 0){
+        return res.status(STATUS_CODE.NOT_FOUND).json({
+            message:"Ticket not found"
+        })
+    }
+
+    return res.status(STATUS_CODE.SUCCESS).json({
+        tickets
+    })
+});
+
+
+const updateStatus = asyncErrorHandler(async(req,res)=>{
+    const id = req.params.id
+    const assignedTo = req.user.id
+    const ticket = await Ticket.findOne({where:{id,assignedTo}});
+
+    if(!ticket){
+        return res.status(STATUS_CODE.BAD_REQUEST).json({
+            message:"You cannot update status"
+        })
+    }
+
+    await ticket.update({ status: req.body.status });
+    
+
+    return res.status(STATUS_CODE.SUCCESS).json({
+        ticket
+    })
+})
+
+module.exports ={createTicket,getAll,getById,updateTicket,remove,viewOurTicket,updateStatus}

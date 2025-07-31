@@ -1,4 +1,4 @@
-# 🐞 Bug & Feature Tracking System
+# Bug & Feature Tracking System
 
 A complete bug and feature tracking platform built with Node.js, Express, Sequelize, and PostgreSQL. Designed with a scalable service-based architecture to manage software development issues, projects, and developer collaboration.
 
